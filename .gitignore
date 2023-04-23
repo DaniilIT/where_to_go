@@ -19,6 +19,7 @@ ENV/
 # data
 *.csv
 *.json
+*.db
 *.sqlite3
 
 # other
