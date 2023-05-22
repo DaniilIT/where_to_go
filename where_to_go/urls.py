@@ -18,11 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from places import views
 from where_to_go.views import start_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', start_page),
+    path('places/<int:place_id>/', views.get_place_details),
 ]
 
 if settings.DEBUG:
