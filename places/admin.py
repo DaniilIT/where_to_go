@@ -1,3 +1,4 @@
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase, SortableTabularInline
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -9,7 +10,7 @@ class CoordinatePlaceInline(admin.StackedInline):
     verbose_name = 'Координаты'
 
 
-class ImagePlaceInline(admin.TabularInline):
+class ImagePlaceInline(SortableTabularInline):
     model = Image
     ordering = ('priority',)
     extra = 1
@@ -24,7 +25,7 @@ class ImagePlaceInline(admin.TabularInline):
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ('title', 'description_short')
     search_fields = ('title', 'description_short')
 
@@ -46,5 +47,5 @@ class ImageAdmin(admin.ModelAdmin):
 
     def preview(self, obj):
         if obj.image:
-            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+            return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
         return 'предпросмотр'

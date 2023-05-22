@@ -27,12 +27,13 @@ class Place(models.Model):
 
 class Image(models.Model):
     image = models.ImageField('Фотография', upload_to='places', null=True)
-    priority = models.IntegerField('Приоритет', default=1)
+    priority = models.IntegerField('Приоритет', default=0, db_index=True)
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               verbose_name='Место', related_name='images')
 
     class Meta:
+        ordering = ['priority']
         verbose_name = 'фотография'
         verbose_name_plural = 'фотографии'
 
