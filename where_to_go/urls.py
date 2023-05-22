@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from places import views
 from where_to_go.views import start_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('tinymce/', include('tinymce.urls')),
     path('', start_page),
     path('places/<int:place_id>/', views.get_place_details),
 ]
