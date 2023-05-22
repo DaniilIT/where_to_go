@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from places.models import Place, Image, Coordinate
 
@@ -19,7 +19,7 @@ class ImagePlaceInline(admin.TabularInline):
 
     def preview(self, obj):
         if obj.image:
-            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+            return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
         return 'предпросмотр'
 
 
