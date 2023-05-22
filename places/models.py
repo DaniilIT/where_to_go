@@ -26,7 +26,8 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    url = models.URLField('URL изображения')
+    image = models.ImageField('Фотография', null=True)
+    priority = models.IntegerField('Приоритет', default=1)
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               verbose_name='Место', related_name='images')

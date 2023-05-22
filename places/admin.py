@@ -13,11 +13,13 @@ class ImagePlaceInline(admin.TabularInline):
     model = Image
     extra = 1
 
-    fields = ['url', 'preview']
+    fields = ['image', 'preview']
     readonly_fields = ('preview',)
 
     def preview(self, obj):
-        return mark_safe(f'<img src="{obj.url}" style="max-height: 200px;">')
+        if obj.image:
+            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+        return 'предпросмотр'
 
 
 @admin.register(Place)
@@ -29,3 +31,6 @@ class PlaceAdmin(admin.ModelAdmin):
         CoordinatePlaceInline,
         ImagePlaceInline,
     ]
+
+
+admin.site.register(Image)
