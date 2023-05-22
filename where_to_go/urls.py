@@ -22,6 +22,8 @@ from where_to_go.views import start_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('', start_page),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

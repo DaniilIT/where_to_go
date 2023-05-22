@@ -11,9 +11,10 @@ class CoordinatePlaceInline(admin.StackedInline):
 
 class ImagePlaceInline(admin.TabularInline):
     model = Image
+    ordering = ('priority',)
     extra = 1
 
-    fields = ['image', 'preview']
+    fields = ['image', 'priority', 'preview']
     readonly_fields = ('preview',)
 
     def preview(self, obj):
@@ -33,4 +34,17 @@ class PlaceAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(Image)
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('place_title', 'preview')
+    fields = ['place', 'priority', 'image', 'preview']
+    raw_id_fields = ('place',)
+    readonly_fields = ('preview',)
+
+    def place_title(self, obj):
+        return obj.place.title
+
+    def preview(self, obj):
+        if obj.image:
+            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+        return 'предпросмотр'

@@ -26,7 +26,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField('Фотография', null=True)
+    image = models.ImageField('Фотография', upload_to='places', null=True)
     priority = models.IntegerField('Приоритет', default=1)
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
