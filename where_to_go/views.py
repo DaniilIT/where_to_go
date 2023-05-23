@@ -1,5 +1,6 @@
+import os
+
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.template import loader
 
 from places.models import Place
@@ -24,7 +25,7 @@ def start_page(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": f'http://127.0.0.1:8000/places/{place.id}/'
+                    "detailsUrl": f'{os.environ.get("HOST", "http://localhost:8000")}/places/{place.id}/'
                 }
             }
         )

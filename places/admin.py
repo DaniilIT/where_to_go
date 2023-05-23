@@ -23,6 +23,8 @@ class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
             return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
         return 'предпросмотр'
 
+    preview.short_description = 'предпросмотр'
+
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
@@ -45,7 +47,11 @@ class ImageAdmin(admin.ModelAdmin):
     def place_title(self, obj):
         return obj.place.title
 
+    place_title.short_description = 'Название места'
+
     def preview(self, obj):
         if obj.image:
             return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
         return 'предпросмотр'
+
+    preview.short_description = 'предпросмотр'
