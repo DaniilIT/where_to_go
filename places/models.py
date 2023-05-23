@@ -14,7 +14,7 @@ class Coordinate(models.Model):
 
 
 class Place(models.Model):
-    title = models.CharField('Название', max_length=100)
+    title = models.CharField('Название', max_length=100, unique=True)
     description_short = models.CharField('Короткое описание', max_length=400, blank=True)
     description_long = HTMLField('Подробное описание', blank=True)
 
