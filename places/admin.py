@@ -1,4 +1,4 @@
-from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase, SortableTabularInline
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -10,7 +10,7 @@ class CoordinatePlaceInline(admin.StackedInline):
     verbose_name = 'Координаты'
 
 
-class ImagePlaceInline(SortableTabularInline):
+class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     ordering = ('priority',)
     extra = 1
