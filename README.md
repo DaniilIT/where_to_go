@@ -23,12 +23,6 @@ Password: `WtG_guest1`\
 pip install -r requirements.txt
 ```
 
-Создайте базу данных SQLite:
-
-```sh
-./manage.py migrate
-```
-
 Перед запуском приложения необходимо установить переменные окружения,\
 положив их в файл `.env` в корне приложения, или выполнив команды:
 
@@ -36,6 +30,12 @@ pip install -r requirements.txt
 export DJANGO_SECRET_KEY=<your key>
 export DEBUG=<True/False>
 export HOST=<http://127.0.0.1:8000>
+```
+
+Создайте базу данных SQLite и накатите миграции:
+
+```sh
+./manage.py migrate
 ```
 
 Запустите приложение командой:
