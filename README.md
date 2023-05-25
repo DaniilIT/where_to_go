@@ -5,9 +5,9 @@
 
 <img src="github_img.png" alt="site" style="height: 320px;" />
 
-Пример сайта развернут [здесь](http://daniilit.pythonanywhere.com/).
+Пример сайта развернут [здесь](https://daniilit.pythonanywhere.com/).
 
-Так же вы можете войти в [админку](http://daniilit.pythonanywhere.com/admin/):\
+Так же вы можете войти в [админку](https://daniilit.pythonanywhere.com/admin/):\
 Username: `guest`\
 Password: `WtG_guest1`\
 В данном аккаунте доступны права только на просмотр данных.
