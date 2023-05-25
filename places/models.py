@@ -39,4 +39,4 @@ class Image(models.Model):
         verbose_name_plural = 'фотографии'
 
     def __str__(self):
-        return self.place.title
+        return f'{self.place.title} - {self.priority}'
