@@ -6,7 +6,7 @@ from places.models import Place
 
 def get_place_details(request, place_id):
     place = get_object_or_404(
-        Place.objects.select_related('coordinate').prefetch_related('images'),
+        Place.objects.select_related('coordinate'),
         pk=place_id
     )
 

@@ -24,6 +24,7 @@ from where_to_go.views import start_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
     path('', start_page),
     path('places/<int:place_id>/', views.get_place_details, name='place_details'),
 ]
