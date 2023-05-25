@@ -24,3 +24,4 @@ ENV/
 
 # other
 media/
+collected_static/
