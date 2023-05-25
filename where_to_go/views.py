@@ -2,6 +2,7 @@ import os
 
 from django.http import HttpResponse
 from django.template import loader
+from django.urls import reverse
 
 from places.models import Place
 
@@ -25,7 +26,9 @@ def start_page(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": f'{os.environ.get("HOST", "http://localhost:8000")}/places/{place.id}/'
+                    "detailsUrl": request.build_absolute_uri(
+                        reverse('place_details', kwargs={'place_id': place.id})
+                    )
                 }
             }
         )
