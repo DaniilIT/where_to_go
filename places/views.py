@@ -19,4 +19,4 @@ def get_place_details(request, place_id):
             "lng": place.coordinate.lng,
             "lat": place.coordinate.lat
         }
-    })
+    }, json_dumps_params={'indent': 2, 'ensure_ascii': False})
