@@ -10,7 +10,7 @@ def get_place_details(request, place_id):
         pk=place_id
     )
 
-    images = place.images.order_by('priority').all()
+    images = place.images.all()
     imgs = []
     for image_table in images.iterator():
         if image_table.image:
