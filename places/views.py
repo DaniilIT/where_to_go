@@ -10,15 +10,9 @@ def get_place_details(request, place_id):
         pk=place_id
     )
 
-    images = place.images.all()
-    imgs = []
-    for image_table in images.iterator():
-        if image_table.image:
-            imgs.append(request.build_absolute_uri(image_table.image.url))
-
     return JsonResponse({
         "title": place.title,
-        "imgs": imgs,
+        "imgs": [img.image.url for img in place.images.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {
