@@ -27,10 +27,12 @@ pip install -r requirements.txt
 положив их в файл `.env` в корне приложения, или выполнив команды:
 
 ```sh
-export DJANGO_SECRET_KEY=<your key>
-export DEBUG=<True/False>
-export HOST=<http://127.0.0.1:8000>
+echo DJANGO_SECRET_KEY=<your key> >> .env
+echo DEBUG=<True/False> >> .env
+echo ALLOWED_HOSTS=<hosts> >> .env
 ```
+
+\* В переменную ALLOWED_HOSTS поместите хосты/домены через запятую, например: "127.0.0.1,localhost".
 
 Создайте базу данных SQLite и накатите миграции:
 
