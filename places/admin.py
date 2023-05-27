@@ -18,9 +18,9 @@ class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
     fields = ['image', 'priority', 'preview']
     readonly_fields = ('preview',)
 
-    def preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
+    def preview(self, image):
+        if image.image:
+            return format_html('<img src="{}" style="max-height: 200px;">', image.image.url)
         return 'предпросмотр'
 
     preview.short_description = 'предпросмотр'
@@ -44,14 +44,14 @@ class ImageAdmin(admin.ModelAdmin):
     raw_id_fields = ('place',)
     readonly_fields = ('preview',)
 
-    def place_title(self, obj):
-        return obj.place.title
+    def place_title(self, image):
+        return f'{image.place.title} - {image.priority}'
 
     place_title.short_description = 'Название места'
 
-    def preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="max-height: 200px;">', obj.image.url)
+    def preview(self, image):
+        if image.image:
+            return format_html('<img src="{}" style="max-height: 200px;">', image.image.url)
         return 'предпросмотр'
 
     preview.short_description = 'предпросмотр'
