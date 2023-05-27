@@ -50,12 +50,11 @@ class Command(BaseCommand):
                 response = requests.get(img_url)
                 response.raise_for_status()
 
-                image_entity = Image(priority=priority + 1, place_id=place_entity.id)
-                image_entity.image.save(
-                    Path(response.url).name,
-                    ContentFile(response.content),
-                    save=False
+                Image.objects.create(
+                    image=ContentFile(response.content,
+                                      name=Path(response.url).name),
+                    priority=priority + 1,
+                    place_id=place_entity.id
                 )
-                image_entity.save()
             except requests.exceptions.HTTPError:
                 self.stderr.write('не удалось скачать изображение')
