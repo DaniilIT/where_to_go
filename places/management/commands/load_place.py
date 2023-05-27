@@ -45,13 +45,12 @@ class Command(BaseCommand):
             place_id=place_entity.id
         )
 
-        priority = 1
-        for img_url in place['imgs']:
+        for priority, img_url in enumerate(place['imgs']):
             try:
                 response = requests.get(img_url)
                 response.raise_for_status()
 
-                image_entity = Image(priority=priority, place_id=place_entity.id)
+                image_entity = Image(priority=priority + 1, place_id=place_entity.id)
                 image_entity.image.save(
                     Path(response.url).name,
                     ContentFile(response.content),
@@ -60,4 +59,3 @@ class Command(BaseCommand):
                 image_entity.save()
             except requests.exceptions.HTTPError:
                 self.stderr.write('не удалось скачать изображение')
-            priority += 1
