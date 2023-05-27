@@ -1,6 +1,5 @@
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
 from django.contrib import admin
-from django.utils.html import format_html
 
 from places.models import Place, Image, Coordinate
 
@@ -17,11 +16,6 @@ class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
 
     fields = ['image', 'priority', 'preview']
     readonly_fields = ('preview',)
-
-    def preview(self, image):
-        return format_html('<img src="{}" style="max-height: 200px;">', image.image.url)
-
-    preview.short_description = 'предпросмотр'
 
 
 @admin.register(Place)
@@ -45,9 +39,4 @@ class ImageAdmin(admin.ModelAdmin):
     def place_title(self, image):
         return f'{image.place.title} - {image.priority}'
 
-    place_title.short_description = 'Название места'
-
-    def preview(self, image):
-        return format_html('<img src="{}" style="max-height: 200px;">', image.image.url)
-
-    preview.short_description = 'предпросмотр'
+    place_title.short_description = 'Название места - приоритет'

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 from tinymce.models import HTMLField
 
 
@@ -40,3 +41,10 @@ class Image(models.Model):
 
     def __str__(self):
         return f'{self.place.title} - {self.priority}'
+
+    def preview(self):
+        """ Предпросмотр изображения для админки
+        """
+        return format_html('<img src="{}" style="max-height: 200px;">', self.image.url)
+
+    preview.short_description = 'предпросмотр'
