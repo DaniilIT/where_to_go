@@ -30,9 +30,11 @@ pip install -r requirements.txt
 echo DJANGO_SECRET_KEY=<your key> >> .env
 echo DEBUG=<True/False> >> .env
 echo ALLOWED_HOSTS=<hosts> >> .env
+echo INTERNAL_IPS=<hosts> >> .env
 ```
 
-\* В переменную ALLOWED_HOSTS поместите хосты/домены через запятую, например: "127.0.0.1,localhost".
+\* В переменные ALLOWED_HOSTS и INTERNAL_IPS поместите хосты/домены через запятую, например: "127.0.0.1,localhost",
+INTERNAL_IPS можно не указывать, если debug-toolbar не используется.
 
 Подготовьте статику для раздачи с сервера:
 
