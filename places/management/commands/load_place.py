@@ -1,10 +1,11 @@
+from pathlib import Path
+
 import requests
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 
 from places.models import Place, Coordinate, Image
-from ._tools import fetch_json, fetch_image
 
 
 class Command(BaseCommand):
@@ -16,7 +17,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         json_url = options['json_url'][0]
         try:
-            place = fetch_json(json_url)
+            response = requests.get(json_url)
+            response.raise_for_status()
+
+            place = response.json()
         except requests.exceptions.HTTPError:
             self.stderr.write('Не удалось скачать JSON файл')
             return
@@ -41,10 +45,15 @@ class Command(BaseCommand):
         priority = 1
         for img_url in place['imgs']:
             try:
-                content, image_name = fetch_image(img_url)
+                response = requests.get(img_url)
+                response.raise_for_status()
 
                 image_entity = Image(priority=priority, place_id=place_entity.id)
-                image_entity.image.save(image_name, ContentFile(content), save=False)
+                image_entity.image.save(
+                    Path(response.url).name,
+                    ContentFile(response.content),
+                    save=False
+                )
                 image_entity.save()
             except requests.exceptions.HTTPError:
                 self.stderr.write('не удалось скачать изображение')
