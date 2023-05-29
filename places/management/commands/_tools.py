@@ -14,22 +14,24 @@ def load_place(json_url: str) -> tuple:
     response = requests.get(json_url)
     response.raise_for_status()
 
-    place_data = response.json()
+    place_data: dict = response.json()
 
     place = Place.objects.create(
         title=place_data['title'],
-        description_short=place_data['description_short'],
-        description_long=place_data['description_long']
+        description_short=place_data.get('description_short', ''),
+        description_long=place_data.get('description_long', '')
     )
 
-    coordinates = place_data['coordinates']
-    Coordinate.objects.create(
-        lat=coordinates['lat'],
-        lng=coordinates['lng'],
-        place_id=place.id
-    )
+    if coordinates := place_data.get('coordinates'):
+        Coordinate.objects.create(
+            lat=coordinates['lat'],
+            lng=coordinates['lng'],
+            place_id=place.id
+        )
 
-    return place, place_data['imgs']
+    images = place_data.get('imgs', [])
+
+    return place, images
 
 
 def load_images(command, place, images):
@@ -41,8 +43,10 @@ def load_images(command, place, images):
             response.raise_for_status()
 
             Image.objects.create(
-                image=ContentFile(response.content,
-                                  name=Path(response.url).name),
+                image=ContentFile(
+                    response.content,
+                    name=Path(response.url).name
+                ),
                 priority=priority,
                 place=place
             )
