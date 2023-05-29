@@ -21,4 +21,5 @@ def get_place_details(request, place_id):
                 "lat": place.coordinate.lat
             }
         },
-        json_dumps_params={'indent': 2, 'ensure_ascii': False})
+        json_dumps_params={'indent': 2, 'ensure_ascii': False},
+    )
