@@ -35,7 +35,7 @@ def load_place(json_url: str) -> tuple:
 def load_images(command, place, images):
     """ Скачивает изображения, относящиеся к месту, и добавляет их в базу данных.
     """
-    for priority, img_url in enumerate(images):
+    for priority, img_url in enumerate(images, start=1):
         try:
             response = requests.get(img_url)
             response.raise_for_status()
@@ -43,7 +43,7 @@ def load_images(command, place, images):
             Image.objects.create(
                 image=ContentFile(response.content,
                                   name=Path(response.url).name),
-                priority=priority + 1,
+                priority=priority,
                 place=place
             )
         except requests.exceptions.HTTPError:
