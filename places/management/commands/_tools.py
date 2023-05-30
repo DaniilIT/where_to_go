@@ -14,22 +14,22 @@ def load_place(json_url: str) -> tuple:
     response = requests.get(json_url)
     response.raise_for_status()
 
-    place_data: dict = response.json()
+    place_raw: dict = response.json()
 
     place = Place.objects.create(
-        title=place_data['title'],
-        description_short=place_data.get('description_short', ''),
-        description_long=place_data.get('description_long', '')
+        title=place_raw['title'],
+        description_short=place_raw.get('description_short', ''),
+        description_long=place_raw.get('description_long', '')
     )
 
-    if coordinates := place_data.get('coordinates'):
+    if coordinates := place_raw.get('coordinates'):
         Coordinate.objects.create(
             lat=coordinates['lat'],
             lng=coordinates['lng'],
             place_id=place.id
         )
 
-    images = place_data.get('imgs', [])
+    images = place_raw.get('imgs', [])
 
     return place, images
 
